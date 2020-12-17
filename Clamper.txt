@@ -1,0 +1,25 @@
+Negative Clamper circuit
+
+Vin a 0 sin(0 5 1k)
+*Input voltage sinusoidal signal with amplitude of 5V and frequency of 1kHz
+
+C a out 10u
+*Series capacitance with value 1microF
+
+Rl out 0 10k
+*Load Resistance of 10kohms
+* Product of RC >> Ts :here considering 100 times the Ts
+
+D1 0 out diode
+.model diode d
+
+.control
+tran 0.01m 10m 
+ *Transient analysis with time step of 0.1ms for time till 10ms
+set color0 = white
+set color1= black
+set color2 = blue
+set color3 = red
+plot V(a) V(out)
+.endc
+.end

@@ -1,0 +1,23 @@
+BandPassFilter(f_cH=50Hz and f_cL=50,000Hz)
+*A filter which passes only that part of signal which within the given frequency range
+C1 1 2 1m
+*Capacitance used in high pass filter = 1 milli F,is fit between 1,2 nodes
+R1 2 0 3.183
+*Resistance used in high pass filter = 10/(pi) ohms,is fit between 0,2 nodes
+R2 2 3 3.183
+*Resistance used in low pass filter = 10/(pi) ohms,is fit between 2,3 nodes
+C2 3 0 1u 
+*Capacitance used in low pass filter = 1 micro F,is fit between 0,3 nodes
+Vin 1 0 dc 0 ac 1
+*Voltage source fit between 1,0 nodes with dc component=0,ac component=1V
+.control
+*Analysis and Plotting
+ac dec 100 1 5Meg
+*AC analysis using Decades variation in range of 1 to 5Mega hz with 100 samples between them
+set color0 = white
+set color1=black
+set color2=indigo
+*Setting the colors for graphical interface
+plot vdb(3) xlog
+.endc
+.end

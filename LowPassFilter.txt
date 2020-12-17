@@ -1,0 +1,20 @@
+Low Pass Filter(f_cL = 50,000 Hz)
+*A filter which allows low frequency components of a signal
+R1 1 2 0
+*Resistance used in filter = 10/(pi) ohms,is fit between 1,2 nodes
+C1 2 0 1u 
+*Capacitance used in filter = 1 micro F,is fit between 0,2 nodes
+Vin 1 0 dc 0 ac 1
+*Voltage source fit between 1,0 nodes with dc component=0,ac component=1V
+.control
+*Analysis and Plotting
+ac dec 10 1 1Meg
+*AC analysis using Decades variation in range of 1 to 1Mega hz with 100 samples between them
+set color0 = white
+set color1=black
+set color2=green
+*Setting the colors for graphical interface
+plot vdb(2) xlog
+.endc
+.end
+ 

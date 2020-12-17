@@ -1,0 +1,23 @@
+NOT Gate implementation using mosfets
+
+Vin in 0 DC 0 PULSE(0 5 0 5NS 5NS 50NS 100NS)
+*Input pulse
+Vdd d 0 DC 5
+*Biasing voltage
+
+M1 out in d d p1
+.model p1 PMOS W=10u
+M2 out in 0 0 n1
+.model n1 NMOS W=1u
+*Setting up CMOS
+
+.tran 10n 100n
+.control
+run
+plot V(in) V(out)+6
+set color0 = white
+set color1 = black
+set color2 = blue
+set color3 = red 
+.endc
+.end

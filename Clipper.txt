@@ -1,0 +1,30 @@
+*Circuit for Clipper
+
+Vin a 0 sin(0 5 1k)
+*Input voltage sinusoidal signal with amplitude of 5V and frequency of 1kHz
+
+R a out 100
+*Series resistance of 100ohm 
+
+D1 out b diode
+D2 b 0 diode
+*Positive clipping diodes- maximum voltage in the positive half cycle is +2Vγ 
+
+D3 0 d diode
+D4 d c diode
+D5 c out diode
+*Negative clipping diodes-  minimum voltage in negative half is -3Vγ
+.model diode d
+
+.control
+tran 0.01m 10m
+*Transient analysis with time step of 0.1ms for time till 10ms
+set color0 = white
+set color1= black
+set color2 = blue
+set color3 = red
+plot V(a) V(out)
+.endc
+.end
+
+

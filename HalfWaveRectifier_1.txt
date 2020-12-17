@@ -1,0 +1,27 @@
+Half wave rectifier for peak supply voltage of 1V.
+
+Vin 1 0 sin(0 1 5000)
+*The peak voltage of sine is considered 1V with frquency 5kHz
+
+D1 1 2 diode
+.model diode d
+*Inserting the diode into the circuit
+
+R1 2 0 1k
+*Choosing the load resistance as 1kohm
+
+
+.control
+tran 0.05m 0.4m 
+*Transient analysis with time step of 0.05ms, for time till 0.4ms
+set color0 = white
+set color1= black
+set color2 = red
+set color3 = blue
+plot v(2) v(1)
+.endc
+.meas tran vp MAX v(2) from =0u to =200u
+*Measuring the peak voltage of the output wave for 1cycle
+.meas tran va AVG v(2) from =0u to =200u
+*Measuring the average voltage of the output wave for 1cycle
+.end

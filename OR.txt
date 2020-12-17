@@ -1,0 +1,41 @@
+OR Gate implementation using NOR and NOT gate
+
+.subckt NOR in1 in2 d out
+M1 c in1 d d p1
+M2 out in2 c d p1
+.model p1 PMOS
+M3 out in2 0 0 n1
+M4 out in1 0 0 n1
+.model n1 NMOS
+.ends
+*Sub-circuit for NOR gate
+.subckt NOT in d out
+M1 out in d d p1
+.model p1 PMOS 
+M2 out in 0 0 n1
+.model n1 NMOS
+.ends
+*Sub-circuit for NOT gate
+
+Vin1 in1 0 DC 0 PULSE(0 5 0 0.1NS 0.1NS 50NS 100NS)
+Vin2 in2 0 DC 0 PULSE(0 5 0 0.1NS 0.1NS 25NS 50NS)
+*Input voltage pulses
+Vdd d 0 DC 5
+*Biasing voltage
+Xnor1 in1 in2 d out1 NOR
+Xnot out1 d out NOT
+*Cascading the NOR gate and its output to NOT Gate to get overall result as OR gate
+
+.tran 25n 100n
+.control
+run  
+plot V(out)+12 V(in1)+6 V(in2)
+set color0 = white
+set color1 = black
+set color2 = blue
+set color3 = red 
+set color4 = green
+.endc
+.end
+
+

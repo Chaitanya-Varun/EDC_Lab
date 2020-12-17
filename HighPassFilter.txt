@@ -1,0 +1,19 @@
+High Pass Filter(f_cH = 50 Hz)
+*A filter which allows high frequency components of a signal
+C1 1 2 1m
+*Capacitance used in filter = 1 milli F,is fit between 1,2 nodes
+R1 2 0 3.183
+*Resistance used in filter = 10/(pi) ohms,is fit between 0,2 nodes
+Vin 1 0 dc 0 ac 1
+*Voltage source fit between 1,0 nodes with dc component=0,ac component=1V
+.control
+*Analysis and Plotting
+ac dec 10 1 1Meg
+*AC analysis using Decades variation in range of 1 to 1Mega hz with 10 samples between them
+set color0 = white
+set color1=black
+set color2=red
+*Setting the colors for graphical interface
+plot vdb(2) xlog
+.endc
+.end

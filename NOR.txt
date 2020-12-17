@@ -1,0 +1,28 @@
+NOR GATE implementation using mosfets
+
+Vin1 in1 0 DC 0 PULSE(0 5 0 0.1NS 0.1NS 50NS 100NS)
+Vin2 in2 0 DC 0 PULSE(0 5 0 0.1NS 0.1NS 25NS 50NS)
+*Input voltage pulses
+
+Vdd d 0 5
+*Biasing Voltage
+
+M1 c in1 d d p1
+M2 out in2 c d p1
+.model p1 PMOS
+M3 out in2 0 0 n1
+M4 out in1 0 0 n1
+.model n1 NMOS
+*Setting up MOSFETs'
+
+.tran 25n 100n
+.control
+run  
+plot V(out)+12 V(in1)+6 V(in2)
+set color0 = white
+set color1 = black
+set color2 = blue
+set color3 = red 
+set color4 = green
+.endc
+.end

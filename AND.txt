@@ -1,0 +1,41 @@
+*Implementation of AND gate using NOR gate (using CMOS)
+
+.subckt NOR in1 in2 d out
+M1 c in1 d d p1
+M2 out in2 c d p1
+.model p1 PMOS
+M3 out in2 0 0 n1
+M4 out in1 0 0 n1
+.model n1 NMOS
+.ends
+*subciruit for NOR gate
+
+
+Vin1 in1 0 DC 0 PULSE(0 5 0 0.1NS 0.1NS 50NS 100NS)
+Vin2 in2 0 DC 0 PULSE(0 5 0 0.1NS 0.1NS 25NS 50NS)
+*Input voltage pulses
+Vdd d 0 DC 5
+*Biasing voltage
+
+xnor1 in1 in1 d out1 NOR
+xnor2 in2 in2 d out2 NOR
+xnor3 out1 out2 d out NOR
+
+.tran 25n 100n
+.control
+run  
+plot V(out)+12 V(in1)+6 V(in2)
+set color0 = white
+set color1 = black
+set color2 = blue
+set color3 = red 
+set color4 = green
+.endc
+.end
+
+
+
+
+
+
+

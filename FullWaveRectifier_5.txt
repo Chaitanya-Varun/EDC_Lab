@@ -1,0 +1,38 @@
+Full wave rectifier for peak supply of voltage 5V.
+
+Vin 1 0 sin(0 5 5000)
+*The peak voltage of sine is considered 1V with frquency 5kHz
+
+D1 1 2 diode
+D2 0 2 diode
+D3 3 0 diode
+D4 3 1 diode
+.model diode d
+*Inserting the diodes into the circuit
+
+R1 2 3 1k
+*Choosing the load resistance as 1kohm
+
+.control
+
+tran 0.05m 0.4m 
+*Transient analysis with time step of 0.05ms, for time till 0.4ms
+
+set color0 = white
+set color1= black
+set color2 = red
+set color3 = blue
+plot V(2)-V(3) V(1)
+.endc
+
+.meas tran vp1 MAX v(2) from =0u to =200u
+.meas tran vp2 MAX v(3) from =0u to =200u
+*Measuring the peak voltage of the output wave for 1cycle by actually measuring 
+*peak at node2 and node3 and subtracting them will give the peak of output
+.meas tran va1 AVG v(2) from =0u to =200u
+.meas tran va2 AVG v(3) from =0u to =200u
+*Measuring the average voltage of the output wave for 1cycle by actually measuring 
+*average at node2 and node3 and subtracting them will give the average of output
+
+
+.end

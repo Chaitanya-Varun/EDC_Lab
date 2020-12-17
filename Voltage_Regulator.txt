@@ -1,0 +1,39 @@
+Voltage Regulator with zener diode
+
+Vin b a sin(0 12 50)
+*Input voltage sinusoidal with amplitude 12V and frequency of 50Hz
+
+D1 a c diode
+D2 b c diode
+D3 0 a diode
+D4 0 b diode
+.model diode d
+*Arranging diodes in full wave rectifier fashion
+
+Cf c 0 0.2m
+*Capacitor 
+Rs c out 100
+*Resistor 
+
+DZ 0 out zener
+.model zener d BV 9
+*Zener diode with break down voltage of 9V
+
+RL 0 out 1k
+*Load resistance of 1k ohm(within range 1k-2k)
+
+.control
+tran 0.1m 40m
+*Transient analysis with time step of 0.1ms, for time till 40ms
+set color0 = white
+set color1= black
+set color2 = blue
+set color3 = red
+set color4 = green
+set xbrushwidth=2
+plot v(out)+24 v(c)+12 v(b)-v(a) 
+plot v(out) v(c) v(b)-v(a)
+.endc
+.end
+
+
